@@ -46,7 +46,7 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
         </label>
         <p className="settings-hint">
           Leave blank for local dev (proxied to <code>npm run dev:api</code>). For production, paste
-          your Vercel API URL ending in <code>/api</code>.
+          your Vercel API base URL ending in <code>/api</code> (the app calls <code>/api/events</code> and <code>/api/chat</code>). To verify in a browser, open <code>/api/events</code> or <code>/api</code> after deploy.
         </p>
 
         <div className="modal-actions">

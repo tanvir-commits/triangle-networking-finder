@@ -102,6 +102,7 @@ In Vercel → Project → **Settings → Environment Variables**:
 1. Copy your Vercel deployment URL, e.g. `https://triangle-networking-finder-abc123.vercel.app`
 2. Open the live GitHub Pages app → **⚙ Settings**
 3. Set API base URL to `https://your-deployment.vercel.app/api`
+   **Browser check:** open `https://your-deployment.vercel.app/api/events` (JSON) or `/api` (discovery JSON). Settings uses the base URL; the app appends `/events` and `/chat`.`r
 4. Save — chat and server events will work
 
 Or set `VITE_API_BASE_URL` at build time and redeploy GitHub Pages.
