@@ -5,7 +5,8 @@ export type PlaceCategory =
   | 'Country & Social Club'
   | 'Professional Networking'
   | 'Charity & Culture'
-  | 'Upscale Social Venue';
+  | 'Upscale Social Venue'
+  | 'Nightlife';
 
 export type NetworkingPotential = 'Excellent' | 'Good' | 'Moderate';
 
@@ -56,4 +57,5 @@ export const CATEGORY_FILTERS: { label: string; value: PlaceCategory | 'All' }[]
   { label: 'Professional', value: 'Professional Networking' },
   { label: 'Charity & Culture', value: 'Charity & Culture' },
   { label: 'Social Venues', value: 'Upscale Social Venue' },
+  { label: 'Nightlife', value: 'Nightlife' },
 ];

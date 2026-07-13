@@ -16,6 +16,13 @@ export function calculateNetworkingScore(place: Place): number {
   }
   if (place.category === 'Professional Networking') score += 6;
   if (place.category === 'Country & Social Club') score += 4;
+  if (place.category === 'Nightlife') score += 3;
+  if (
+    place.category === 'Nightlife' &&
+    place.bestFor.some((item) => /date|dating|couples|meeting new people/i.test(item))
+  ) {
+    score += 4;
+  }
 
   const proximityBonus = Math.max(0, 35 - place.driveTimeMinutes);
   score += Math.round(proximityBonus * 0.6);
