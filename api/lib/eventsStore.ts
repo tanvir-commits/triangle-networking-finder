@@ -1,4 +1,4 @@
-import seedEvents from '../data/events-seed.json' with { type: 'json' };
+﻿import { createRequire } from 'node:module';
 
 export type StoredEvent = {
   id: string;
@@ -13,6 +13,9 @@ export type StoredEvent = {
   source: string;
   disclaimer?: string;
 };
+
+const require = createRequire(import.meta.url);
+const seedEvents = require('../data/events-seed.json') as StoredEvent[];
 
 const EVENTS_KEY = 'tnf:events';
 
