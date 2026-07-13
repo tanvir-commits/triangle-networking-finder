@@ -1,11 +1,11 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { applyCors } from './lib/cors';
+import { applyCors } from './lib/cors.js';
 import {
   addEvent,
   getEvents,
   removeEvent,
   validateEventPayload,
-} from './lib/eventsStore';
+} from './lib/eventsStore.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (applyCors(req, res)) return;

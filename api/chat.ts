@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { applyCors } from './lib/cors';
-import { enforceRateLimit } from './lib/rateLimit';
-import { getEvents } from './lib/eventsStore';
-import { PLACES_OVERVIEW, filterPlaces, type PlaceSummary } from './lib/placesContext';
+import { applyCors } from './lib/cors.js';
+import { enforceRateLimit } from './lib/rateLimit.js';
+import { getEvents } from './lib/eventsStore.js';
+import { PLACES_OVERVIEW, filterPlaces, type PlaceSummary } from './lib/placesContext.js';
 
 const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
 

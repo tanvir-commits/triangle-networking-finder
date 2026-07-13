@@ -1,6 +1,4 @@
-﻿import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+﻿import { seedEvents as seedEventsData } from '../data/seedEvents.js';
 
 export type StoredEvent = {
   id: string;
@@ -16,12 +14,7 @@ export type StoredEvent = {
   disclaimer?: string;
 };
 
-const seedEvents = JSON.parse(
-  readFileSync(
-    join(dirname(fileURLToPath(import.meta.url)), '../data/events-seed.json'),
-    'utf8',
-  ),
-) as StoredEvent[];
+const seedEvents = seedEventsData as unknown as StoredEvent[];
 
 const EVENTS_KEY = 'tnf:events';
 

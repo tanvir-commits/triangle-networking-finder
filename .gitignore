@@ -27,3 +27,5 @@ server/local-events.json
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
