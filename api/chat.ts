@@ -311,7 +311,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
     const messages = Array.isArray(body?.messages) ? (body.messages as ChatMessage[]) : [];
-    const question = messages.at(-1)?.content?.trim() || String(body?.question ?? '').trim();
+    const lastMessage = messages.length > 0 ? messages[messages.length - 1] : undefined;
+    const question = lastMessage?.content?.trim() || String(body?.question ?? '').trim();
     const places = Array.isArray(body?.places) ? (body.places as PlaceSummary[]) : [];
     const context = body?.context ?? {};
 
