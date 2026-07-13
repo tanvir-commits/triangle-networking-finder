@@ -1,4 +1,6 @@
-﻿import { createRequire } from 'node:module';
+﻿import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 export type StoredEvent = {
   id: string;
@@ -14,8 +16,12 @@ export type StoredEvent = {
   disclaimer?: string;
 };
 
-const require = createRequire(import.meta.url);
-const seedEvents = require('../data/events-seed.json') as StoredEvent[];
+const seedEvents = JSON.parse(
+  readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), '../data/events-seed.json'),
+    'utf8',
+  ),
+) as StoredEvent[];
 
 const EVENTS_KEY = 'tnf:events';
 
@@ -30,12 +36,12 @@ export async function getEvents(): Promise<StoredEvent[]> {
       const stored = await kv.get<StoredEvent[]>(EVENTS_KEY);
       if (stored && stored.length > 0) return stored;
       await kv.set(EVENTS_KEY, seedEvents);
-      return seedEvents as StoredEvent[];
+      return seedEvents;
     } catch {
-      return seedEvents as StoredEvent[];
+      return seedEvents;
     }
   }
-  return seedEvents as StoredEvent[];
+  return seedEvents;
 }
 
 export async function saveEvents(events: StoredEvent[]): Promise<void> {
