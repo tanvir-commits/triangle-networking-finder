@@ -1,4 +1,4 @@
-import seedEvents from '../data/events-seed.json';
+import seedEvents from '../data/events-seed.json' with { type: 'json' };
 
 export type StoredEvent = {
   id: string;
