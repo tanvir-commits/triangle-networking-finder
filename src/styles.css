@@ -49,6 +49,9 @@ textarea {
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 
 .app-header h1 {
@@ -176,6 +179,15 @@ textarea {
 .app-main {
   display: grid;
   gap: 1.5rem;
+  flex: 1;
+  min-height: 0;
+}
+
+.app-main-chat {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .category-section h2 {
@@ -354,6 +366,91 @@ textarea {
 .app-footer {
   margin: 2rem 0 1rem;
   font-size: 0.9rem;
+  display: grid;
+  gap: 1.25rem;
+  justify-items: center;
+}
+
+.qr-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  max-width: 100%;
+}
+
+.qr-canvas {
+  flex: 0 0 auto;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.qr-copy {
+  display: grid;
+  gap: 0.35rem;
+  text-align: left;
+  min-width: 0;
+}
+
+.qr-label {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.qr-link {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  word-break: break-all;
+}
+
+.chat-page {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.chat-page-header {
+  padding: 1rem 1rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.chat-page-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.chat-page .chat-messages {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+}
+
+.chat-page .chat-recommendations {
+  max-height: none;
+  padding: 0;
+}
+
+.chat-page .chat-input-row {
+  flex-shrink: 0;
+  background: var(--surface);
+}
+
+.chat-page .chat-input-row textarea {
+  font-size: 16px;
 }
 
 .ai-panel {
@@ -525,9 +622,9 @@ textarea {
 
 .chat-fab {
   position: fixed;
-  right: 1rem;
   bottom: 1rem;
-  z-index: 30;
+  right: max(1rem, calc((100vw - min(1200px, 100vw)) / 2 + 1rem));
+  z-index: 60;
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -796,28 +893,6 @@ textarea {
   gap: 0.75rem;
   margin-top: 0.85rem;
   flex-wrap: wrap;
-}
-
-.chat-fab {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 50;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: none;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 700;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-}
-
-@media (prefers-color-scheme: dark) {
-  .chat-fab {
-    color: #042f2e;
-  }
 }
 
 .chat-backdrop,

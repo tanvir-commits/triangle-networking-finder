@@ -13,7 +13,9 @@ import { Header } from './components/Header';
 import { PlaceCard } from './components/PlaceCard';
 import { EventsView } from './components/EventsView';
 import { ChatPanel } from './components/ChatPanel';
+import { QrCodeSection } from './components/QrCodeSection';
 import { SettingsModal } from './components/SettingsModal';
+import type { AppView } from './types/view';
 import './styles.css';
 
 function filterPlaces(
@@ -81,7 +83,7 @@ export default function App() {
   const [maxDriveTime, setMaxDriveTime] = useState(35);
   const [sort, setSort] = useState<SortOption>('networking');
   const [activeCategory, setActiveCategory] = useState<PlaceCategory | 'All'>('All');
-  const [view, setView] = useState<'places' | 'shortlist' | 'events'>('places');
+  const [view, setView] = useState<AppView>('places');
   const [userData, setUserData] = useState<UserData>(() => loadUserData());
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -179,8 +181,34 @@ export default function App() {
         }}
       />
 
-      <main className="app-main">
-        {view === 'events' ? (
+      <main className={view === 'ai' ? 'app-main app-main-chat' : 'app-main'}>
+        {view === 'ai' ? (
+          <ChatPanel
+            places={filteredPlaces}
+            maxDriveTime={maxDriveTime}
+            activeCategory={activeCategory}
+            userData={userData}
+            expandedId={expandedId}
+            onToggleExpand={(placeId) =>
+              setExpandedId((current) => (current === placeId ? null : placeId))
+            }
+            onToggleFavorite={(placeId) =>
+              updateUserData(placeId, {
+                favorite: !(userData[placeId]?.favorite ?? false),
+              })
+            }
+            onToggleVisited={(placeId) =>
+              updateUserData(placeId, {
+                visited: !(userData[placeId]?.visited ?? false),
+              })
+            }
+            onRatingChange={(placeId, rating) =>
+              updateUserData(placeId, { rating: rating || undefined })
+            }
+            onNotesChange={(placeId, notes) => updateUserData(placeId, { notes })}
+            onEventsChanged={() => setEventsVersion((v) => v + 1)}
+          />
+        ) : view === 'events' ? (
           <EventsView key={eventsVersion} />
         ) : view === 'shortlist' ? (
           shortlist.length ? (
@@ -200,35 +228,10 @@ export default function App() {
         )}
       </main>
 
-      <ChatPanel
-        places={filteredPlaces}
-        maxDriveTime={maxDriveTime}
-        activeCategory={activeCategory}
-        userData={userData}
-        expandedId={expandedId}
-        onToggleExpand={(placeId) =>
-          setExpandedId((current) => (current === placeId ? null : placeId))
-        }
-        onToggleFavorite={(placeId) =>
-          updateUserData(placeId, {
-            favorite: !(userData[placeId]?.favorite ?? false),
-          })
-        }
-        onToggleVisited={(placeId) =>
-          updateUserData(placeId, {
-            visited: !(userData[placeId]?.visited ?? false),
-          })
-        }
-        onRatingChange={(placeId, rating) =>
-          updateUserData(placeId, { rating: rating || undefined })
-        }
-        onNotesChange={(placeId, notes) => updateUserData(placeId, { notes })}
-        onEventsChanged={() => setEventsVersion((v) => v + 1)}
-      />
-
       <SettingsModal open={settingsOpen} onClose={() => setSettingsOpen(false)} />
 
       <footer className="app-footer">
+        <QrCodeSection />
         <p>{places.length} curated places · Drive times are approximate from Durham 27707</p>
       </footer>
     </div>
