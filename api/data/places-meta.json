@@ -1,0 +1,14 @@
+{
+  "totalPlaces": 58,
+  "location": "Durham, NC 27707",
+  "categories": {
+    "Church": { "count": 8, "examples": ["St. Stephen's Episcopal", "Westminster Presbyterian"] },
+    "Premium Fitness": { "count": 7, "examples": ["Lifetime Athletic", "Equinox"] },
+    "Yoga & Pilates": { "count": 5, "examples": ["CorePower Yoga", "Club Pilates"] },
+    "Country & Social Club": { "count": 6, "examples": ["Hope Valley Country Club", "MacGregor Downs"] },
+    "Professional Networking": { "count": 8, "examples": ["American Underground", "HQ Raleigh"] },
+    "Charity & Culture": { "count": 7, "examples": ["Durham Performing Arts Center", "NC Museum of Art"] },
+    "Upscale Social Venue": { "count": 5, "examples": ["Boxyard RTP", "Durham Food Hall"] },
+    "Nightlife": { "count": 12, "examples": ["Foundation", "Raleigh Beer Garden"] }
+  }
+}

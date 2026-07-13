@@ -1,0 +1,125 @@
+{
+  "events": [
+    {
+      "id": "frontier-ooo-jul-2026",
+      "title": "Frontier Out of the Box",
+      "date": "2026-07-17",
+      "time": "17:00",
+      "venue": "Frontier RTP",
+      "city": "Research Triangle Park",
+      "category": "Networking",
+      "url": "https://www.frontierrtp.org/events",
+      "source": "Frontier RTP",
+      "description": "Monthly happy-hour style networking for RTP innovators, founders, and professionals. Example date — verify on Frontier calendar."
+    },
+    {
+      "id": "1-million-cups-raleigh",
+      "title": "1 Million Cups Raleigh",
+      "date": "2026-07-15",
+      "time": "09:00",
+      "venue": "HQ Raleigh",
+      "city": "Raleigh",
+      "category": "Startup",
+      "url": "https://www.1millioncups.com/raleigh",
+      "source": "1 Million Cups",
+      "description": "Weekly Wednesday morning pitch and coffee for entrepreneurs and supporters. Example date — check current schedule."
+    },
+    {
+      "id": "rtp-rotary",
+      "title": "RTP Rotary Club Meeting",
+      "date": "2026-07-16",
+      "time": "12:00",
+      "venue": "RTP Headquarters",
+      "city": "Research Triangle Park",
+      "category": "Professional",
+      "url": "https://rtp.rotary.org/",
+      "source": "RTP Rotary",
+      "description": "Lunch meeting for civic-minded professionals. Guests welcome — RSVP recommended. Example date."
+    },
+    {
+      "id": "american-underground-pitch",
+      "title": "American Underground Demo Day Prep",
+      "date": "2026-07-22",
+      "time": "18:00",
+      "venue": "American Underground",
+      "city": "Durham",
+      "category": "Startup",
+      "url": "https://americanunderground.org/events",
+      "source": "American Underground",
+      "description": "Founder networking and pitch practice in downtown Durham. Example date — verify on AU events page."
+    },
+    {
+      "id": "boxyard-rtp-live",
+      "title": "Boxyard RTP Live Music Night",
+      "date": "2026-07-19",
+      "time": "19:00",
+      "venue": "Boxyard RTP",
+      "city": "Research Triangle Park",
+      "category": "Nightlife",
+      "url": "https://boxyardrtp.com/events",
+      "source": "Boxyard RTP",
+      "description": "Outdoor container-park social with food, drinks, and live music. Great casual networking atmosphere."
+    },
+    {
+      "id": "durham-chamber-mixer",
+      "title": "Durham Chamber Business After Hours",
+      "date": "2026-07-24",
+      "time": "17:30",
+      "venue": "Durham Bulls Athletic Park",
+      "city": "Durham",
+      "category": "Networking",
+      "url": "https://durhamchamber.org/events",
+      "source": "Durham Chamber",
+      "description": "Chamber mixer for local business leaders and professionals. Example date — check chamber calendar."
+    },
+    {
+      "id": "triangle-uxpa",
+      "title": "Triangle UXPA Monthly Meetup",
+      "date": "2026-07-21",
+      "time": "18:30",
+      "venue": "Raleigh",
+      "city": "Raleigh",
+      "category": "Professional",
+      "url": "https://www.meetup.com/triangle-uxpa/",
+      "source": "Triangle UXPA",
+      "description": "Design and product professionals meetup. Example date — see Meetup for current event."
+    },
+    {
+      "id": "nc-biotech-coffee",
+      "title": "NC Biotech Coffee & Connect",
+      "date": "2026-07-23",
+      "time": "08:30",
+      "venue": "NC Biotechnology Center",
+      "city": "Research Triangle Park",
+      "category": "Biotech",
+      "url": "https://www.ncbiotech.org/events",
+      "source": "NC Biotech Center",
+      "description": "Morning networking for life-sciences professionals in the Triangle. Example date."
+    },
+    {
+      "id": "raleigh-wine-social",
+      "title": "Raleigh Wine & Social",
+      "date": "2026-07-26",
+      "time": "18:00",
+      "venue": "Raleigh Wine Shop",
+      "city": "Raleigh",
+      "category": "Social",
+      "url": "https://www.meetup.com/",
+      "source": "Local Meetup",
+      "description": "Upscale social wine tasting for professionals. Example placeholder — verify before attending."
+    },
+    {
+      "id": "durham-food-hall-night",
+      "title": "Durham Food Hall Social Night",
+      "date": "2026-07-18",
+      "time": "19:00",
+      "venue": "Durham Food Hall",
+      "city": "Durham",
+      "category": "Nightlife",
+      "url": "https://durhamfoodhall.com/",
+      "source": "Durham Food Hall",
+      "description": "Casual group dining and drinks in downtown Durham. Good for meeting people in a relaxed setting."
+    }
+  ],
+  "disclaimer": "Dates are illustrative examples seeded for demo. Always verify event details on the source website before attending."
+}

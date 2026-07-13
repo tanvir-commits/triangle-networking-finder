@@ -11,6 +11,9 @@ import {
 } from './utils/storage';
 import { Header } from './components/Header';
 import { PlaceCard } from './components/PlaceCard';
+import { EventsView } from './components/EventsView';
+import { ChatPanel } from './components/ChatPanel';
+import { SettingsModal } from './components/SettingsModal';
 import './styles.css';
 
 function filterPlaces(
@@ -78,9 +81,11 @@ export default function App() {
   const [maxDriveTime, setMaxDriveTime] = useState(35);
   const [sort, setSort] = useState<SortOption>('networking');
   const [activeCategory, setActiveCategory] = useState<PlaceCategory | 'All'>('All');
-  const [view, setView] = useState<'places' | 'shortlist'>('places');
+  const [view, setView] = useState<'places' | 'shortlist' | 'events'>('places');
   const [userData, setUserData] = useState<UserData>(() => loadUserData());
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [eventsVersion, setEventsVersion] = useState(0);
 
   const filteredPlaces = useMemo(
     () => sortPlaces(filterPlaces(places, search, activeCategory, maxDriveTime), sort),
@@ -156,6 +161,7 @@ export default function App() {
         onSortChange={setSort}
         onCategoryChange={setActiveCategory}
         onViewChange={setView}
+        onOpenSettings={() => setSettingsOpen(true)}
         onExport={() => exportUserData(userData)}
         onImport={async (file) => {
           try {
@@ -174,7 +180,9 @@ export default function App() {
       />
 
       <main className="app-main">
-        {view === 'shortlist' ? (
+        {view === 'events' ? (
+          <EventsView key={eventsVersion} />
+        ) : view === 'shortlist' ? (
           shortlist.length ? (
             renderCards(shortlist)
           ) : (
@@ -191,6 +199,34 @@ export default function App() {
           <p className="empty-state">No places match your filters. Try widening drive time or clearing search.</p>
         )}
       </main>
+
+      <ChatPanel
+        places={filteredPlaces}
+        maxDriveTime={maxDriveTime}
+        activeCategory={activeCategory}
+        userData={userData}
+        expandedId={expandedId}
+        onToggleExpand={(placeId) =>
+          setExpandedId((current) => (current === placeId ? null : placeId))
+        }
+        onToggleFavorite={(placeId) =>
+          updateUserData(placeId, {
+            favorite: !(userData[placeId]?.favorite ?? false),
+          })
+        }
+        onToggleVisited={(placeId) =>
+          updateUserData(placeId, {
+            visited: !(userData[placeId]?.visited ?? false),
+          })
+        }
+        onRatingChange={(placeId, rating) =>
+          updateUserData(placeId, { rating: rating || undefined })
+        }
+        onNotesChange={(placeId, notes) => updateUserData(placeId, { notes })}
+        onEventsChanged={() => setEventsVersion((v) => v + 1)}
+      />
+
+      <SettingsModal open={settingsOpen} onClose={() => setSettingsOpen(false)} />
 
       <footer className="app-footer">
         <p>{places.length} curated places · Drive times are approximate from Durham 27707</p>
