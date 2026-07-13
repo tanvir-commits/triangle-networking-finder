@@ -299,10 +299,19 @@ textarea {
 }
 
 @media (prefers-color-scheme: dark) {
-  .badge-excellent,
-  .badge-good,
+  .badge-excellent {
+    background: #14532d;
+    color: #bbf7d0;
+  }
+
+  .badge-good {
+    background: #1e3a8a;
+    color: #bfdbfe;
+  }
+
   .badge-moderate {
-    color: inherit;
+    background: #78350f;
+    color: #fde68a;
   }
 }
 
