@@ -139,12 +139,68 @@ Rules:
 - For events, use propose_add_event / propose_remove_event — never claim an event was saved.
 - When web search is unavailable, say dates may need verification.
 - Be concise, practical, and mobile-friendly.
-- After tool use, respond with JSON only:
+- After tool use, respond with raw JSON only (no markdown, no code fences):
 {
   "message": "friendly reply",
   "recommendations": [{ "placeId": "id", "reason": "why" }],
   "proposed_events": [{ "action": "add"|"remove", "event": { ... } }]
 }`;
+}
+
+function extractJsonPayload(text: string): unknown | null {
+  const trimmed = text.trim();
+  if (!trimmed) return null;
+
+  try {
+    return JSON.parse(trimmed);
+  } catch {
+    // continue
+  }
+
+  const fenceMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  if (fenceMatch) {
+    try {
+      return JSON.parse(fenceMatch[1].trim());
+    } catch {
+      // continue
+    }
+  }
+
+  const start = trimmed.indexOf('{');
+  const end = trimmed.lastIndexOf('}');
+  if (start >= 0 && end > start) {
+    try {
+      return JSON.parse(trimmed.slice(start, end + 1));
+    } catch {
+      // continue
+    }
+  }
+
+  return null;
+}
+
+function parseAssistantPayload(text: string): {
+  message: string;
+  recommendations: { placeId: string; reason: string }[];
+  proposed_events: ProposedEvent[];
+} | null {
+  const parsed = extractJsonPayload(text);
+  if (!parsed || typeof parsed !== 'object' || parsed === null) return null;
+
+  const record = parsed as Record<string, unknown>;
+  if (!('message' in record) && !('recommendations' in record) && !('proposed_events' in record)) {
+    return null;
+  }
+
+  return {
+    message: String(record.message ?? text),
+    recommendations: Array.isArray(record.recommendations)
+      ? (record.recommendations as { placeId: string; reason: string }[])
+      : [],
+    proposed_events: Array.isArray(record.proposed_events)
+      ? (record.proposed_events as ProposedEvent[])
+      : [],
+  };
 }
 
 async function runTool(
@@ -261,19 +317,16 @@ async function callOpenAi(
     }
 
     const text = String(choice.content ?? '').trim();
-    try {
-      const parsed = JSON.parse(text);
+    const parsed = parseAssistantPayload(text);
+    if (parsed) {
       return {
-        message: String(parsed.message ?? text),
-        recommendations: Array.isArray(parsed.recommendations) ? parsed.recommendations : [],
-        proposed_events: [
-          ...proposals,
-          ...(Array.isArray(parsed.proposed_events) ? parsed.proposed_events : []),
-        ],
+        message: parsed.message,
+        recommendations: parsed.recommendations,
+        proposed_events: [...proposals, ...parsed.proposed_events],
       };
-    } catch {
-      return { message: text, recommendations: [], proposed_events: proposals };
     }
+
+    return { message: text, recommendations: [], proposed_events: proposals };
   }
 
   return {

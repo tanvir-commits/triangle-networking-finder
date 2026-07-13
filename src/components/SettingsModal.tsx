@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { loadSettings, saveSettings } from '../utils/settings';
+import { getDefaultApiBaseUrl, loadSettings, saveSettings } from '../utils/settings';
 
 type SettingsModalProps = {
   open: boolean;
@@ -8,6 +8,7 @@ type SettingsModalProps = {
 
 export function SettingsModal({ open, onClose }: SettingsModalProps) {
   const [apiBaseUrl, setApiBaseUrl] = useState('');
+  const defaultApiUrl = getDefaultApiBaseUrl();
 
   useEffect(() => {
     if (open) setApiBaseUrl(loadSettings().apiBaseUrl);
@@ -36,17 +37,18 @@ export function SettingsModal({ open, onClose }: SettingsModalProps) {
         </p>
 
         <label className="field-label">
-          API base URL (Vercel deployment)
+          API base URL (optional override)
           <input
             type="url"
             value={apiBaseUrl}
             onChange={(event) => setApiBaseUrl(event.target.value)}
-            placeholder="https://your-project.vercel.app/api"
+            placeholder={defaultApiUrl}
           />
         </label>
         <p className="settings-hint">
-          Leave blank for local dev (proxied to <code>npm run dev:api</code>). For production, paste
-          your Vercel API base URL ending in <code>/api</code> (the app calls <code>/api/events</code> and <code>/api/chat</code>). To verify in a browser, open <code>/api/events</code> or <code>/api</code> after deploy.
+          Leave blank to use the built-in default (<code>{defaultApiUrl}</code>). Override only if
+          you deploy your own Vercel API. Local dev uses the proxied <code>npm run dev:api</code>{' '}
+          server automatically.
         </p>
 
         <div className="modal-actions">

@@ -120,7 +120,9 @@ export function ChatPanel({
           <p className="chat-subtitle">
             {health?.configured
               ? `Powered by ${health.model}${health.webSearch ? ' + web search' : ''}`
-              : 'Set API URL in Settings (gear icon)'}
+              : health === undefined
+                ? 'Checking AI availability…'
+                : 'AI unavailable — check connection or try again later'}
           </p>
         </div>
       </div>

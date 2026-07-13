@@ -1,9 +1,15 @@
 const SETTINGS_KEY = 'triangle-networking-finder-settings';
-const DEFAULT_API_URL = import.meta.env.VITE_API_BASE_URL || '';
+
+export const PRODUCTION_API_URL = 'https://triangle-networking-finder.vercel.app/api';
 
 export type AppSettings = {
   apiBaseUrl: string;
 };
+
+export function getDefaultApiBaseUrl(): string {
+  const envUrl = import.meta.env.VITE_API_BASE_URL?.trim();
+  return (envUrl || PRODUCTION_API_URL).replace(/\/$/, '');
+}
 
 export function loadSettings(): AppSettings {
   try {
@@ -12,20 +18,26 @@ export function loadSettings(): AppSettings {
   } catch {
     // ignore
   }
-  return { apiBaseUrl: DEFAULT_API_URL };
+  return { apiBaseUrl: '' };
 }
 
 export function saveSettings(settings: AppSettings): void {
   localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
 }
 
+/** localStorage override > VITE_API_BASE_URL env > production default (dev uses local proxy). */
 export function getApiBaseUrl(): string {
-  const url = loadSettings().apiBaseUrl.trim().replace(/\/$/, '');
-  if (url) return url;
+  const override = loadSettings().apiBaseUrl.trim().replace(/\/$/, '');
+  if (override) return override;
+
+  const envUrl = import.meta.env.VITE_API_BASE_URL?.trim().replace(/\/$/, '');
+  if (envUrl) return envUrl;
 
   if (import.meta.env.DEV) {
-    return `${window.location.origin}${import.meta.env.BASE_URL}api`.replace(/\/$/, '').replace(/\/api\/api$/, '/api');
+    return `${window.location.origin}${import.meta.env.BASE_URL}api`
+      .replace(/\/$/, '')
+      .replace(/\/api\/api$/, '/api');
   }
 
-  return '';
+  return PRODUCTION_API_URL;
 }
